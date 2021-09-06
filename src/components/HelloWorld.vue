@@ -1,19 +1,49 @@
 <template>
-  <h1>{{ msg }}</h1>
-  <button @click="count++">count is: {{ count }}</button>
-  <p>Edit <code>components/HelloWorld.vue</code> to test hot module replacement.</p>
+  <div class="alert alert-primary">
+    <h1>{{ title }}</h1>
+    <pre>{{ message }}</pre>
+    <hr />
+    <div>
+      <input
+        type="text"
+        class="form-control"
+        v-on:keypress="type"
+        v-on:keydown.delete="clear"
+        v-on:keydown.space="space"
+        v-on:keydown.enter="enter"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  },
+  name: "HelloWorld",
   data() {
     return {
-      count: 0
-    }
-  }
-}
+      title: "Event",
+      message: "",
+    };
+  },
+  methods: {
+    type(event) {
+      if (event.key == "Enter") {
+        return;
+      }
+      this.message += event.key + " ";
+      event.target.value = "";
+    },
+    clear() {
+      this.message = "";
+    },
+    space() {
+      this.message += "_ ";
+    },
+    enter(event) {
+      let res = this.message.split("").join("");
+      this.message = res.split("_").join("");
+      event.target.value = "";
+    },
+  },
+};
 </script>
