@@ -3,15 +3,15 @@
     <h1>{{ title }}</h1>
     <pre>{{ message }}</pre>
     <hr />
-    <div>
-      <input
-        type="text"
-        class="form-control"
-        v-on:keypress="type"
-        v-on:keydown.delete="clear"
-        v-on:keydown.space="space"
-        v-on:keydown.enter="enter"
-      />
+    <div
+      class="area"
+      v-on:click="click"
+      v-on:click.exact="exact"
+      v-on:click.shift="shift"
+      v-on:click.ctrl="ctrl"
+      v-on:click.alt="alt"
+    >
+      click here!
     </div>
   </div>
 </template>
@@ -19,31 +19,38 @@
 <script>
 export default {
   name: "HelloWorld",
-  data() {
+  data: function () {
     return {
       title: "Event",
       message: "",
     };
   },
   methods: {
-    type(event) {
-      if (event.key == "Enter") {
-        return;
-      }
-      this.message += event.key + " ";
-      event.target.value = "";
+    click() {
+      this.message = "click ";
     },
-    clear() {
-      this.message = "";
+    exact() {
+      this.message += "**no any key**";
     },
-    space() {
-      this.message += "_ ";
+    shift() {
+      this.message += "[shift]";
     },
-    enter(event) {
-      let res = this.message.split("").join("");
-      this.message = res.split("_").join("");
-      event.target.value = "";
+    ctrl() {
+      this.message += "[ctrl]";
+    },
+    alt() {
+      this.message += "[alt]";
     },
   },
 };
 </script>
+
+<style>
+.area {
+  width: 300px;
+  height: 100px;
+  background-color: #fff;
+  padding: 10px;
+  font-size: 20pt;
+}
+</style>
