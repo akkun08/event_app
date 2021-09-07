@@ -6,10 +6,9 @@
     <div
       class="area"
       v-on:click="click"
-      v-on:click.exact="exact"
-      v-on:click.shift="shift"
-      v-on:click.ctrl="ctrl"
-      v-on:click.alt="alt"
+      v-on:click.left.prevent="left"
+      v-on:click.middle.prevent="middle"
+      v-on:click.right.prevent="right"
     >
       click here!
     </div>
@@ -26,20 +25,14 @@ export default {
     };
   },
   methods: {
-    click() {
-      this.message = "click ";
+    left() {
+      this.message = "[left button]";
     },
-    exact() {
-      this.message += "**no any key**";
+    right() {
+      this.message = "[right button]";
     },
-    shift() {
-      this.message += "[shift]";
-    },
-    ctrl() {
-      this.message += "[ctrl]";
-    },
-    alt() {
-      this.message += "[alt]";
+    middle() {
+      this.message = "[middle button]";
     },
   },
 };
